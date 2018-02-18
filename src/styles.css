@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+*{font-family: arial;}
+
+
+.ui-chkbox .ui-chkbox-icon {
+    display: block;
+    margin-top: 7px;
+}
+.ui-chkbox .ui-chkbox-box{
+  width: 35px;
+  height: 35px;
+}
+.ui-calendar .ui-calendar-button {
+  width: 2.5em
+}
