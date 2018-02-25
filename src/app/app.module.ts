@@ -4,21 +4,25 @@ import { FormsModule } from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
 
 import { AppComponent } from './app.component';
-import { PopupComponent} from './components/popup/popup.component';
-import { PopupModule } from './components/popup/popup.module';
+import { taskComponent} from './components/popup/task.component';
+import { taskModule } from './components/popup/task.module';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PopupComponent
+    taskComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    PopupModule,
-    DropdownModule
+    taskModule,
+    DropdownModule,
+    CheckboxModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,8 +6,9 @@ import { HttpModule } from '@angular/http';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 
-import { PopupService } from './services/popup.service';
+import { taskService } from './services/task.service';
 
 
 @NgModule({
@@ -19,8 +20,8 @@ import { PopupService } from './services/popup.service';
     HttpModule,
     CalendarModule,
     CheckboxModule,
-    DialogModule
-
+    DialogModule,
+    DropdownModule
 
   ],
   exports: [
@@ -28,14 +29,14 @@ import { PopupService } from './services/popup.service';
     HttpModule,
     CalendarModule,
     CheckboxModule,
-    DialogModule
-
+    DialogModule,
+    DropdownModule
   ],
   entryComponents: [
 ],
 
   providers: [
-    PopupService
+    taskService
   ]
 })
-export class PopupModule { }
+export class taskModule { }

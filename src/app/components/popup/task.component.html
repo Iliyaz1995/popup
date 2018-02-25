@@ -1,0 +1,55 @@
+<p-dialog id="taskDlog" header="ADD TASK" [(visible)]="display" modal="modal" width="980" [responsive]="true" (onHide)="onTaskCancel()">
+
+   <form [formGroup]='task' (ngSubmit)='ontaskSubmit()'>
+<div class="row">
+      <div class="col-md-4">
+         <label id="taskCompntntLabel">Source of Task</label>
+         <select name="source" id="taskCompntntSelect" formControlName='sourceOfTask' (click)="rxIdorOrderId()">
+           <option *ngFor="let sourceTaskOption of sourceTaskOptions" value="{{sourceTaskOption.value}}">
+             {{sourceTaskOption.name}}
+           </option>
+         </select>
+      </div>
+      <div class="col-md-4">
+        <label id="taskCompntntLabel">{{rxOrderTitle}} Number</label>
+        <select name="orders" id="taskCompntntSelect" formControlName='orders' placeholder="Please select source">
+          <option *ngFor="let RxorOrderOption of RxorOrderOptions" value="{{RxorOrderOption.value}}">
+            {{RxorOrderOption.name}}
+          </option>
+        </select>
+      </div>
+</div>
+
+    <div class="row">
+      <div class="col-md-4">
+         <label id="taskCompntntLabel">Reason</label>
+         <select name="reason" id="taskCompntntSelect" formControlName='reason'>
+           <option *ngFor="let reasonOption of reasonOptions" value="{{reasonOption.value}}">
+             {{reasonOption.name}}
+           </option>
+         </select>
+      </div>
+      <div class="col-md-4">
+          <label id="taskCompntntLabel">Follow up date and time</label>
+          <p-calendar id="taskClndr" formControlName="dateTime" [showIcon]="true" placeholder="DD/MM/YYYY" showTime="true" hourFormat="24"></p-calendar>
+     </div>
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-8">
+        <label id="taskCompntntLabel">Comments</label>
+         <textarea name="name" id="taskCompntntSelect" formControlName='comments' rows="2"></textarea>
+      </div>
+    </div>
+  </form>
+
+
+
+        <p-footer>
+            <button type="button" pButton icon="fa-close" iconPos="right" (click)="onTaskCancel()" label="Cancel"></button>
+            <button type="submit" pButton icon="fa-check" iconPos="right" (click)="ontaskSubmit()" label="Submit"></button>
+        </p-footer>
+</p-dialog>
+
+<button type="button" (click)="showDialog()" pButton label="Create task"></button>
