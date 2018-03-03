@@ -1,0 +1,43 @@
+{
+    "taskSource": [
+        {"name": "-SELECT-","value": ""},
+        {"name": "Rx","value": "Rx"},
+        {"name": "Order","value": "Order"},
+        {"name": "Other","value": "Other"}
+    ],
+    "taskReason": [
+        {"name": "-SELECT-","value": ""},
+        {"name": "Insurance Diversion","value": "Insurance Diversion"},
+        {"name": "Clinical Review Diversions","value": "Clinical Review Diversions"},
+        {"name": "Other","value": "Counseling Diversion"}
+    ],
+    "ordersOptions": {
+        "patient-1": [
+            {"name": "-SELECT-","value": ""},
+            {"name": "Order options","value": "order option"},
+            {"name": 12345,"value": 12345},
+            {"name": 56789,"value": 56789}
+        ],
+        "patient-2": [
+            {"name": "-SELECT-","value": ""},
+            {"name": "Order Id","value": "order Id"},
+            {"name": "hello","value": "hello"},
+            {"name": "number 2","value": "order 2 "}
+        ]
+    },
+    "rxOptions": {
+        "patient-1": [
+            {"name": "-SELECT-","value": ""},
+            {"name": "RX options","value": "Rx options"},
+            {"name": 98765,"value": 98765},
+            {"name": 54321,"value": 54321
+            }
+        ],
+        "patient-2": [
+            {"name": "-SELECT-","value": ""},
+            {"name": "RX options","value": "Rx options"},
+            {"name": "hello","value": "hello"},
+            {"name": "number 2","value": "number 2"}
+        ]
+    }
+}

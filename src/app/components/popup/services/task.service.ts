@@ -1,41 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable()
 export class taskService {
-constructor(private http: Http) {}
+constructor(private http:HttpClient) {}
 
-  url:string = 'https://my-json-server.typicode.com/Iliyaz1995/sampleDatabase/';
+
+  url: string = './assets/task.json';
+
+taskOptionsRequest(extensionUrl, patientId){
+  if(patientId == undefined){
+    return this.http.get(this.url).map((res) => res[extensionUrl])
+  }else if(extensionUrl !== undefined && patientId !== undefined){
+    return this.http.get(this.url).map((res) => res[extensionUrl][patientId])
+  }
+};
+
 
 getTaskSource = () => {
-  return this.http.get(this.url +'taskSource').map(
-      (res) => res.json()
-    )
-}
-
+  return this.taskOptionsRequest('taskSource', undefined);
+};
+  
 getTaskReason = () => {
-    return this.http.get(this.url+ 'taskReason').map(
-      (res) => res.json()
-    )
-}
+  return this.taskOptionsRequest('taskReason', undefined);
+};
  
-getOrderId = (patientId) => {
-  return this.http.get(this.url +'ordersOptions').map(
-      (res) => res.json()[patientId]
-    )
-}
+getOrderId = (patientIdFromComponent) => {
+  return this.taskOptionsRequest('ordersOptions', patientIdFromComponent)
+};
 
 getRxId = (patientId) => {
-  return this.http.get(this.url +'rxOptions').map(
-      (res) => res.json()[patientId]
-    )
+  return this.taskOptionsRequest('rxOptions', patientId)
 }
 
 createTask = (task) => {
-  return this.http.put(this.url +'submittedData', task).map(
-      (res) => res.json()
+  return this.http.put('https://my-json-server.typicode.com/Iliyaz1995/sampleDatabase/submittedData', task).map(
+      (res) => res
     )
  }
 

@@ -16,9 +16,13 @@
   color: #646464;
 }
 
-
 /* -------------primeng styling with ViewEncapsulation------------------- */
-/* 
+#taskDropDwn .ui-dropdown{
+    margin: 10px 0 20px 0;
+    border: 1px solid #646464;
+    border-radius: 0; 
+  }
+
 #taskClndr .ui-calendar .ui-calendar-button {
     border-radius: 0;
 
@@ -26,13 +30,25 @@
 #taskClndr .ui-calendar.ui-calendar-w-btn input{
   border-radius: 0;
   border: 1pt solid #646464;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  height: 35.65626px;
+  width: 70%;
+  margin-right: 2px;
 }
 
 #taskClndr .ui-calendar{
   margin-top: 10px;
+  
+}
+#taskClndr .ng-trigger-overlayState{
+  top: -125px !important;
+}
+
+#taskTime .ui-calendar{
+  margin-top: 10px;
+}
+#taskTime .ui-calendar input{
+  border-radius: 0;
+  border: 1pt solid #646464;
+  width: 50%;
 }
 
 
@@ -49,7 +65,7 @@
 #taskDlog .ui-dialog .ui-dialog-content {
     padding: 20px;
 }
-
+/* 
 #taskDlog .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
   background-color: #e9e9e9;
   text-align: center;
@@ -60,13 +76,14 @@
   height: 40px;
   padding: 5px;
   color: #646464;
-}
+} */
+
 #taskDlog .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
   font-size: 20px;
   position: relative;
-  top: 20px;
+  top: 10px;
 }
 #taskDlog .ui-dialog-footer{
   padding-top: 0;
   border: 0;
-} */
+}

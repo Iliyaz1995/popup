@@ -7,9 +7,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
 
 import { taskService } from './services/task.service';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { taskService } from './services/task.service';
     CalendarModule,
     CheckboxModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    InputMaskModule,
+    HttpClientModule
 
   ],
   exports: [
@@ -30,7 +33,9 @@ import { taskService } from './services/task.service';
     CalendarModule,
     CheckboxModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    InputMaskModule,
+    HttpClientModule
   ],
   entryComponents: [
 ],
