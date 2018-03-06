@@ -36,10 +36,10 @@ getRxId = (patientId) => {
   return this.taskOptionsRequest('rxOptions', patientId)
 }
 
-createTask = (task) => {
-  return this.http.put('https://my-json-server.typicode.com/Iliyaz1995/sampleDatabase/submittedData', task).map(
-      (res) => res
-    )
- }
+// createTask = (task) => {
+//   return this.http.put(this.url['submitted'], task).map(
+//       (res) => res
+//     )
+//  }
 
 }

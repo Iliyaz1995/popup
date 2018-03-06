@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {DropdownModule} from 'primeng/dropdown';
 
 import { AppComponent } from './app.component';
 import { taskComponent} from './components/popup/task.component';
 import { taskModule } from './components/popup/task.module';
-import { CheckboxModule } from 'primeng/checkbox';
-import { CalendarModule } from 'primeng/calendar';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
 
 
 
@@ -19,10 +17,7 @@ import { CalendarModule } from 'primeng/calendar';
   imports: [
     BrowserModule,
     FormsModule,
-    taskModule,
-    DropdownModule,
-    CheckboxModule,
-    CalendarModule
+    taskModule
   ],
   providers: [],
   bootstrap: [AppComponent]

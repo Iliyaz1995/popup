@@ -1,7 +1,7 @@
 
 <p-dialog id="taskDlog" 
           header="ADD TASK"
-          [(visible)]="display"
+          [(visible)]="createTaskDisplay"
           modal="modal" 
           width="980" 
           [responsive]="true" 
@@ -11,7 +11,7 @@
 <div class="row">
       <div class="col-md-4">
          <label id="taskCompntntLabel">Source of Task</label>
-        <p-dropdown id="taskDropDwn" (onChange)="rxIdorOrderId()" [options]="sourceTaskOptions" formControlName="sourceOfTask" [style]="{'width':'100%'}" optionLabel="name" ></p-dropdown>
+        <p-dropdown id="taskDropDwn" (onChange)="rxIdorOrderIdChange(task.value.sourceOfTask.value)" [options]="sourceTaskOptions" formControlName="sourceOfTask" [style]="{'width':'100%'}" optionLabel="name" ></p-dropdown>
       </div>
 
       <div class="col-md-4">
@@ -52,9 +52,11 @@
 
 
         <p-footer>
-            <button type="button" pButton icon="fa-close" iconPos="right" (click)="display=false" label="Cancel"></button>
+            <button type="button" pButton icon="fa-close" iconPos="right" (click)="onTaskCancel()" label="Cancel"></button>
             <button type="submit" pButton icon="fa-check" iconPos="right" (click)="ontaskSubmit()" label="Submit"></button>
         </p-footer>
 </p-dialog>
 
-<button type="button" (click)="showDialog()" pButton label="Create task"></button>
+<p-growl [(value)]="errorMessage"></p-growl>
+
+child: {{createTaskDisplay}}

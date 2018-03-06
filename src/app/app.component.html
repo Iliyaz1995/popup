@@ -1,3 +1,5 @@
+<app-task [createTaskDisplay]='createTaskDisplay' (createTaskDisplayToParent)='createTaskDisplayPass()'></app-task>
+<button type="button" pButton iconPos="right" (click)="showDialog()" label="Create task"></button>
 
-<app-task></app-task>
+parent: {{createTaskDisplay}}
 

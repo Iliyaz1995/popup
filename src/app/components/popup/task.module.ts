@@ -8,6 +8,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
+import { GrowlModule } from 'primeng/growl';
 
 import { taskService } from './services/task.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,8 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     DialogModule,
     DropdownModule,
     InputMaskModule,
-    HttpClientModule
-
+    HttpClientModule,
+    GrowlModule 
   ],
   exports: [
     ReactiveFormsModule,
@@ -35,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
     DialogModule,
     DropdownModule,
     InputMaskModule,
-    HttpClientModule
+    HttpClientModule,
+    GrowlModule 
   ],
   entryComponents: [
 ],

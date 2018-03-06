@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Inject, ViewEncapsulation, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { taskService } from "./services/task.service";
@@ -15,6 +15,21 @@ export class taskComponent implements OnInit{
   constructor(private taskService: taskService) {}
 
 
+  @Input() createTaskDisplay:boolean;
+  @Output() createTaskDisplayToParent = new EventEmitter<any>()
+  
+  createTaskDisplayChange = this.createTaskDisplay;
+  createTaskDisplayPass(){
+    this.createTaskDisplayToParent.emit();
+  }
+
+
+  errorMessage:any;
+
+  createTaskGrowl(severity, summary, detail) {
+    this.errorMessage = [];
+    this.errorMessage.push({ severity: severity, summary: summary, detail: detail });
+  }
 //defining form group
   task: FormGroup;
 
@@ -27,12 +42,10 @@ export class taskComponent implements OnInit{
               {value: "", name: "Please select Source"}
              ];
   
-  
              
 //showing dialog box 
-  display = false;
    showDialog() {
-     this.display = true;
+     this.createTaskDisplay = true;
   };
 
         
@@ -43,7 +56,10 @@ export class taskComponent implements OnInit{
        this.sourceTaskOptions = res;
      },
      (error)=>{
-       console.log(error)
+       this.errorMessage = error;
+       this.createTaskGrowl('error', 'error', error.statusText)
+       console.log(error);
+       
      }
    );
  };
@@ -54,7 +70,9 @@ export class taskComponent implements OnInit{
         this.reasonOptions = res;
       },
       (error) => {
-        console.log(error)
+        this.errorMessage = error;
+        this.createTaskGrowl('error', 'error', error.statusText)
+        console.log(this.errorMessage);
       }
     );
   };
@@ -65,7 +83,9 @@ export class taskComponent implements OnInit{
       this.ordersOptions = res;
       },
       (error) => {
-        console.log(error)
+        this.errorMessage = error;
+        this.createTaskGrowl('error', 'error', error.statusText)
+        console.log(this.errorMessage);
       }
    );
   };
@@ -76,33 +96,35 @@ export class taskComponent implements OnInit{
         this.rxOptions = res;
       },
       (error) => {
-        console.log(error)
+        this.errorMessage = error;
+        this.createTaskGrowl('error', 'error', error.statusText)
+        console.log(this.errorMessage);
       }
     );
   };
   
-  createTask(){
-    this.taskService.createTask(this.taskValue).subscribe(
-      (res) => console.log(res)
-      ,(error) => console.log(error)
-    );
-  };
+  // responseOfFormSubmitted:object;
+  // createTask(){
+  //   this.taskService.createTask(this.taskValue).subscribe(
+  //     (res) => this.responseOfFormSubmitted = res
+  //     , (error) => {
+  //       this.errorMessage = error;
+  //     }
+  //   );
+  // };
 
   //changing RxId or OrderId
   
   rxOrderTitle = "Rx/Order";
-  rxIdorOrderId() {
-    const getSourceTask = this.task.value.sourceOfTask.value;
-    console.log(getSourceTask);
-
-    if (getSourceTask === "Rx") {
+  rxIdorOrderIdChange(sourceOfTaskValue) {
+    if (sourceOfTaskValue === "Rx") {
+      this.task.controls.rxOrOrders.reset()
       this.RxorOrderOptions = this.rxOptions;
-      this.rxOrderTitle = getSourceTask;
-
-    } else if (getSourceTask === "Order") {
+      this.rxOrderTitle = sourceOfTaskValue;
+    } else if (sourceOfTaskValue === "Order") {
+      this.task.controls.rxOrOrders.reset()
       this.RxorOrderOptions = this.ordersOptions;
-      this.rxOrderTitle = getSourceTask;
-
+      this.rxOrderTitle = sourceOfTaskValue;
     } else {
       this.RxorOrderOptions = [{ value: "", name: "Please select Source" }];
       this.rxOrderTitle = "Rx/Order";
@@ -111,15 +133,6 @@ export class taskComponent implements OnInit{
   };
 
   
-
-  //editing Time
-
-  // taskTimeToString(){
-  //   var selectedTime = this.task.value.time;
-  //   var extractingTime = new Date(selectedTime.toString()).toTimeString().slice(0, 5);
-  //   this.submittedTime = extractingTime
-  // }
-
 
   //Creating a object which should be posted adter submitting
   submittedSourceOfTask: any;
@@ -154,19 +167,33 @@ export class taskComponent implements OnInit{
    //submiting task form
    ontaskSubmit() {
      if (this.task.invalid) {
-       this.display = true;
+       this.createTaskDisplay = true;
+       if (this.task.controls.comments.errors !== null){
+         if (this.task.controls.comments.errors.optionNotSelected){
+           this.createTaskGrowl('error', 'error', 'Please fill all the feilds')
+        } else if (this.task.controls.comments.errors.noMoreThan2000){
+          this.createTaskGrowl('error', 'error', 'comments should be less than 2000 character')
+         }
+       }else{
+         this.createTaskGrowl('error', 'error', 'Please fill all the feilds')
+       }
+
      }else{
-       this.display = false;
-       this.submittedValue()
-       this.createTask();
+         this.submittedValue()
+        //  this.createTask();
+         this.createTaskDisplay = false;
+         this.createTaskGrowl('success', 'Success!', 'Successfully');
+         this.createTaskDisplayPass()     
      }
    };
  
    
    //cancel task form
    onTaskCancel(){
-     this.display = false;
+     this.createTaskDisplay = false;
      this.task.reset();
+     this.defaultValues();
+     this.createTaskDisplayPass()     
    };
 
 
@@ -190,13 +217,6 @@ export class taskComponent implements OnInit{
     this.createTaskminDate = createTasktoday
   }
 
-  //validating date. it should not allow users to choose past days
-  createTaskMinTime;
-  timeValidation() {
-    let createTasktime = new Date();
-    this.createTaskMinTime = createTasktime;
-  }
-
 
 
     ngOnInit() {
@@ -204,15 +224,13 @@ export class taskComponent implements OnInit{
        "sourceOfTask": new FormControl("", dropdownValidator),
        "reason": new FormControl("", dropdownValidator),
        "date": new FormControl("", Validators.required),
-       "time": new FormControl("", Validators.required),
+       "time": new FormControl(""),
        "rxOrOrders": new FormControl("", dropdownValidator),
-       "comments": new FormControl(`TEXT COMMENTS LINE 1,
-TEXT COMMENTS LINE 2`, Validators.required)
+       "comments": new FormControl("", dropdownValidator)
     });
 
       this.defaultValues();
       this.dateValidation();
-      this.timeValidation();
   };
 
 
